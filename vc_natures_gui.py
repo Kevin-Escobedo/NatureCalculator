@@ -12,7 +12,7 @@ class Interface:
         self.root_window.iconbitmap(self.resource_path("pokeball.ico"))
         self.root_window.resizable(False, False)
         self.root_window.title("VC Nature Calculator")
-        self.EXP = tkinter.Entry(self.root_window, width = 30)
+        self.EXP = tkinter.Entry(self.root_window, width = 39)
         self.result = tkinter.StringVar()
         self.nature_result = ""
 
@@ -39,6 +39,11 @@ class Interface:
         except TypeError:
             pass
 
+    def key(self, event):
+        '''Handles key input'''
+        if event.keysym == "Return":
+            self.calculate_nature()
+
     def run(self):
         '''Runs the GUI'''
         tkinter.Label(self.root_window, text = "Enter EXP").grid(row=0, column=0)
@@ -50,6 +55,8 @@ class Interface:
         
         tkinter.Label(self.root_window, textvariable = self.result).grid(row = 2, column = 1)
         self.result.set("{}".format(self.nature_result))
+
+        self.root_window.bind("<KeyPress>", self.key)
 
         self.root_window.mainloop()
 
